@@ -44,11 +44,11 @@ class _AppState extends State<App> {
 
   Widget getBottomNavigationBar() {
     return Container(
-      height: 70,
+      height: 55,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         border: Border(
-            top: BorderSide(width: 1, color: Colors.black.withOpacity(0.3))),
+            top: BorderSide(width: 0.5, color: Colors.black.withOpacity(0.2))),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 5),

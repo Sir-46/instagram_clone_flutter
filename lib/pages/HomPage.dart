@@ -18,8 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String title = 'ManDo App';
 
-  List<int> story = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -361,7 +359,9 @@ class _HomePageState extends State<HomePage> {
             width: 24,
             height: 24,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/chat');
+          },
         ),
       ],
     );

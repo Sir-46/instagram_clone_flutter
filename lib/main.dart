@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_flutter/pages/ChatPage.dart';
 import 'package:instagram_clone_flutter/pages/app.dart';
 // import 'package:instagram_clone_flutter/pages/SearchPage.dart';
 
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         accentColor: Colors.greenAccent,
       ),
-      home: App(),
+      // home: App(),
+      initialRoute: '/',
+      routes: {'/': (context) => App(), '/chat': (context) => ChatPage()},
     );
   }
 }

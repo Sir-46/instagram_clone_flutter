@@ -1,5 +1,18 @@
 const newFeeds = [
   {
+    "id": 1,
+    "profile":
+        "https://instagram.fhdy2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/144664193_788256812127235_5546274549942029730_n.jpg?tp=1&_nc_ht=instagram.fhdy2-1.fna.fbcdn.net&_nc_ohc=yF6iMrIOnhsAX8inQ4A&edm=ABfd0MgBAAAA&ccb=7-4&oh=4079dab037b2b87b87e2ad501195a8ea&oe=60C96829&_nc_sid=7bff83",
+    "username": "roses_are_rosie",
+    "imageUrl":
+        "https://instagram.fhdy2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/144664193_788256812127235_5546274549942029730_n.jpg?tp=1&_nc_ht=instagram.fhdy2-1.fna.fbcdn.net&_nc_ohc=yF6iMrIOnhsAX8inQ4A&edm=ABfd0MgBAAAA&ccb=7-4&oh=4079dab037b2b87b87e2ad501195a8ea&oe=60C96829&_nc_sid=7bff83",
+    "likes": "4,713,639",
+    "isLike": true,
+    "caption": " ;",
+    "comments": "View all 17,792 comments",
+    "dateTime": "3 days ago"
+  },
+  {
     "id": 2,
     "profile":
         "https://instagram.fhdy2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/65079039_419417092247775_890863091493896192_n.jpg?tp=1&_nc_ht=instagram.fhdy2-1.fna.fbcdn.net&_nc_ohc=6xKlX9zxpRYAX_aSC5K&edm=AAeKFY8BAAAA&ccb=7-4&oh=c01eb254d591b245f434543eae8f083a&oe=60C82A63&_nc_sid=c982ba",
@@ -40,4 +53,11 @@ const newFeeds = [
     "comments": "View all 17,792 comments",
     "dateTime": "6 hours ago"
   },
+];
+
+const imageWithTags = [
+  "https://images.unsplash.com/photo-1506112573664-1a1b66d93ff3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8dmlld3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8dmlld3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1537769060554-b41893a07504?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHZpZXd8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
 ];
