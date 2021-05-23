@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_flutter/utils/chat_json.dart';
 
 class ChatPage extends StatefulWidget {
@@ -15,14 +14,23 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: getAppBar(),
-      body: getBody(size),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: getAppBar(),
+        body: getBody(size),
+      ),
     );
   }
 
   Widget getAppBar() {
     return AppBar(
+        bottom: TabBar(indicatorColor: Colors.black54, tabs: [
+          Tab(text: 'แชท'),
+          Tab(
+            text: 'ห้อง',
+          )
+        ]),
         centerTitle: false,
         elevation: 0.0,
         title: Row(children: [
@@ -51,62 +59,15 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget getBody(size) {
-    return ListView(
-      children: [
-        Column(
+    return SafeArea(
+      child: TabBarView(children: [
+        ListView(
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 54,
-                  width: size.width * 0.5,
-                  child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = 0;
-                        });
-                      },
-                      child: Center(
-                          child: Text(
-                        'แชท',
-                        style: TextStyle(
-                            color: selectedIndex == 0
-                                ? Colors.black
-                                : Colors.black.withOpacity(0.5)),
-                      ))),
-                ),
-                Container(
-                  height: 54,
-                  width: size.width * 0.5,
-                  child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = 1;
-                        });
-                      },
-                      child: Center(
-                          child: Text(
-                        'ห้อง',
-                        style: TextStyle(
-                            color: selectedIndex == 1
-                                ? Colors.black
-                                : Colors.black.withOpacity(0.5)),
-                      ))),
-                )
-              ],
-            ),
-            Container(
-              height: 1,
-              width: size.width,
-              decoration: BoxDecoration(color: Colors.grey[300]),
-            )
+            getChat(size),
           ],
         ),
-        IndexedStack(
-          index: selectedIndex,
-          children: [getChat(size), getRoom(size)],
-        )
-      ],
+        getRoom(size),
+      ]),
     );
   }
 
@@ -143,7 +104,16 @@ class _ChatPageState extends State<ChatPage> {
         Column(
             children: List.generate(chats.length, (index) {
           return InkWell(
-            onTap: () {},
+            onTap: () async {
+              Navigator.pushNamed(
+                context,
+                '/chatdetail',
+                arguments: {
+                  'id': chats[index]['id'],
+                  'title': chats[index]['username'],
+                },
+              );
+            },
             child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Row(
@@ -185,7 +155,7 @@ class _ChatPageState extends State<ChatPage> {
                         children: [
                           Text(
                             chats[index]['username'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           Text(
                             chats[index]['dateTime'],

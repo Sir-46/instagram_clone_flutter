@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:instagram_clone_flutter/utils/search_json.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({
@@ -53,14 +54,19 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      Flexible(
+      Container(
+        height: size.height - 182.0,
         child: StaggeredGridView.countBuilder(
             crossAxisCount: 3,
-            mainAxisSpacing: 0.8,
-            crossAxisSpacing: 0.8,
-            itemCount: feeds.length,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
+            itemCount: search.length,
             itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(color: Colors.red),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      image: DecorationImage(
+                          image: NetworkImage(search[index]['imageUrl']),
+                          fit: BoxFit.cover)),
                 ),
             staggeredTileBuilder: (index) => StaggeredTile.count(
                 (index % 7 == 0 ? 2 : 1), (index % 7 == 0 ? 2 : 1))),

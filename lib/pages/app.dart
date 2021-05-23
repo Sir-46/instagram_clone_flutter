@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:instagram_clone_flutter/pages/HomPage.dart';
-import 'package:instagram_clone_flutter/pages/ProfilePage.dart';
-import 'package:instagram_clone_flutter/pages/ReelsPage.dart';
-import 'package:instagram_clone_flutter/pages/SearchPage.dart';
-import 'package:instagram_clone_flutter/pages/StorePage.dart';
+import 'package:instagram_clone_flutter/pages/home_page.dart';
+import 'package:instagram_clone_flutter/pages/profile_page.dart';
+import 'package:instagram_clone_flutter/pages/reels_page.dart';
+import 'package:instagram_clone_flutter/pages/search_page.dart';
+import 'package:instagram_clone_flutter/pages/store_page.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform;
 
 import 'package:instagram_clone_flutter/utils/bottom_navigation_bar_json.dart';
 
@@ -37,14 +38,15 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    var platform = Theme.of(context).platform;
     return Scaffold(
-        bottomNavigationBar: getBottomNavigationBar(),
+        bottomNavigationBar: getBottomNavigationBar(platform),
         body: _pageWidget.elementAt(_selectedIndex));
   }
 
-  Widget getBottomNavigationBar() {
+  Widget getBottomNavigationBar(platform) {
     return Container(
-      height: 55,
+      height: platform == TargetPlatform.iOS ? 70 : 55,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         border: Border(
