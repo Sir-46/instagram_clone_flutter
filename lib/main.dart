@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone_flutter/pages/chat_detail_page.dart';
 import 'package:instagram_clone_flutter/pages/chat_page.dart';
 import 'package:instagram_clone_flutter/pages/app.dart';
+import 'package:instagram_clone_flutter/pages/login_page.dart';
 // import 'package:instagram_clone_flutter/pages/SearchPage.dart';
 
 void main() {
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.greenAccent,
       ),
       // home: App(),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => LoginPage(),
         '/': (context) => App(),
         '/chat': (context) => ChatPage(),
         '/chatdetail': (context) => ChatDetailPage()

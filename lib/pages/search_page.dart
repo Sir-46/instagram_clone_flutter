@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone_flutter/utils/search_json.dart';
 
 class SearchPage extends StatefulWidget {
@@ -13,10 +14,16 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  ScrollController _scrollcontroller;
   String title = 'ManDo App';
   List feeds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
+
+  void initState() {
+    super.initState();
+    _scrollcontroller = new ScrollController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,51 +33,53 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget getBody(size) {
-    return Column(children: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Container(
-          height: 45.0,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: TextField(
-            style: TextStyle(
-              fontSize: 16.0,
-              height: 1.1,
-            ),
-            decoration: InputDecoration(
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.black,
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          title: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Container(
+              height: 45.0,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
               ),
-              hintText: 'ค้นหา',
+              child: TextField(
+                style: TextStyle(
+                  fontSize: 16.0,
+                  height: 1.1,
+                ),
+                decoration: InputDecoration(
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  hintText: 'ค้นหา',
+                ),
+              ),
             ),
           ),
+          floating: true,
+          elevation: 0.0,
         ),
-      ),
-      Container(
-        height: size.height - 182.0,
-        child: StaggeredGridView.countBuilder(
-            crossAxisCount: 3,
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 1,
-            itemCount: search.length,
-            itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      image: DecorationImage(
-                          image: NetworkImage(search[index]['imageUrl']),
-                          fit: BoxFit.cover)),
-                ),
-            staggeredTileBuilder: (index) => StaggeredTile.count(
-                (index % 7 == 0 ? 2 : 1), (index % 7 == 0 ? 2 : 1))),
-      ),
-    ]);
+        SliverGrid.count(
+          crossAxisCount: 3,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          children: List.generate(search.length, (index) {
+            return Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage('${search[index]['imageUrl']}'))),
+            );
+          }),
+        )
+      ],
+    );
   }
 }
