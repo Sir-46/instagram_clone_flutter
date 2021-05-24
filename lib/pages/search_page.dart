@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone_flutter/utils/search_json.dart';
 
 class SearchPage extends StatefulWidget {
@@ -14,21 +12,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  ScrollController _scrollcontroller;
-  String title = 'ManDo App';
-  List feeds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  final List<String> entries = <String>['A', 'B', 'C'];
-  final List<int> colorCodes = <int>[600, 500, 100];
-
-  void initState() {
-    super.initState();
-    _scrollcontroller = new ScrollController();
-  }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print('size $size');
     return Scaffold(body: SafeArea(child: getBody(size)));
   }
 

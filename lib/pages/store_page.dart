@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_clone_flutter/utils/search_json.dart';
 import 'package:instagram_clone_flutter/utils/store_tag.json.dart';
 
@@ -14,57 +13,94 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  String title = 'ManDo App';
+  ScrollController _controller;
+  bool collapse = false;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+    super.initState();
+  }
+
+  _scrollListener() {
+    if (_controller.offset > 60) {
+      setState(() {
+        collapse = true;
+      });
+    } else {
+      setState(() {
+        collapse = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: getAppBar(),
       body: SafeArea(child: getBody(size)),
     );
   }
 
-  Widget getAppBar() {
-    return AppBar(
-      elevation: 0.0,
-      centerTitle: false,
-      title: Text(
-        'ร้านค้า',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.bookmark)),
-        IconButton(onPressed: () {}, splashRadius: 15, icon: Icon(Icons.menu))
-      ],
-      bottom: PreferredSize(
+  Widget getBody(size) {
+    return CustomScrollView(
+      controller: _controller,
+      slivers: [
+        SliverAppBar(
+          title: !collapse
+              ? Text(
+                  'ร้านค้า',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                )
+              : Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey,
+                      ),
+                      hintText: 'ค้นหาร้านค้า...',
+                      border: InputBorder.none,
+                      hintStyle:
+                          TextStyle(color: Colors.black.withOpacity(0.5)),
+                    ),
+                  ),
+                ),
+          pinned: true,
+          expandedHeight: 0.0,
+          actions: [
+            IconButton(
+                onPressed: () {}, splashRadius: 20, icon: Icon(Icons.bookmark)),
+            IconButton(
+                onPressed: () {}, splashRadius: 20, icon: Icon(Icons.menu))
+          ],
+        ),
+        SliverToBoxAdapter(
           child: Column(
             children: [
               Container(
-                // color: Colors.red,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                height: 40,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: TextField(
+                    cursorColor: Colors.black.withOpacity(0.5),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey,
                       ),
-                      child: TextField(
-                        cursorColor: Colors.black.withOpacity(0.5),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'ส่งข้อความ...',
-                            hintStyle:
-                                TextStyle(color: Colors.black.withOpacity(0.5)),
-                            icon: Icon(
-                              Icons.search,
-                              color: Colors.grey,
-                            )),
-                      ),
+                      border: InputBorder.none,
+                      hintText: 'ค้นหาร้านค้า...',
+                      hintStyle:
+                          TextStyle(color: Colors.black.withOpacity(0.5)),
                     ),
                   ),
                 ),
@@ -99,31 +135,20 @@ class _StorePageState extends State<StorePage> {
               ),
             ],
           ),
-          preferredSize: Size.fromHeight(110.0)),
-    );
-  }
-
-  Widget getBody(size) {
-    return Column(children: [
-      Container(
-          width: size.width,
-          height: size.height - 283.0,
-          child: StaggeredGridView.countBuilder(
-            // controller: scrollcontroller,
-            crossAxisCount: 2,
+        ),
+        SliverGrid.count(
+            crossAxisCount: 3,
             mainAxisSpacing: 1,
             crossAxisSpacing: 1,
-            itemCount: search.length,
-            itemBuilder: (context, index) => Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  image: DecorationImage(
-                      image: NetworkImage(search[index]['imageUrl']),
-                      fit: BoxFit.cover)),
-            ),
-            staggeredTileBuilder: (index) => StaggeredTile.count(
-                (index % 4 == 0 ? 2 : 1), (index % 4 == 0 ? 2 : 1)),
-          )),
-    ]);
+            children: List.generate(search.length, (index) {
+              return Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage('${search[index]['imageUrl']}'))),
+              );
+            }))
+      ],
+    );
   }
 }
