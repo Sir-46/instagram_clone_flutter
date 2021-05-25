@@ -122,13 +122,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   borderRadius: BorderRadius.circular(5)),
               child: Center(child: Text('แก้ใขโปรไฟล์')),
             ),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [],
-            )
           ],
         ),
       );
@@ -185,10 +178,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget getImage(size, images) {
-    return Wrap(
-      direction: Axis.horizontal,
-      spacing: 3,
-      runSpacing: 3,
+    return GridView.count(
+      padding: EdgeInsets.zero,
+      crossAxisCount: 3,
+      mainAxisSpacing: 1,
+      crossAxisSpacing: 2,
       children: List.generate(images.length, (index) {
         return Container(
           height: (size.width - 6) / 3,
